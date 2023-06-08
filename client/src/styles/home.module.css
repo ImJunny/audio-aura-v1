@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap");
+
+.display {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  transition: filter 5s ease;
+  justify-content: center;
+  align-items: center;
+}
+/*-2*/
+.background {
+  height: 100%;
+  width: 100%;
+  z-index: -2;
+}
+.gradient {
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+.overlay {
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(110px);
+  position: absolute;
+  z-index: 2;
+}
+/*0*/
+.wrapper {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper h1 {
+  font-family: "IBM Plex Sans";
+  font-weight: 200;
+}
+
+/*1*/
+.container {
+  height: 600px;
+  width: 320px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+  position: relative;
+  justify-content: space-between;
+}
+
+.panel {
+  width: 100%;
+  background-color: rgba(26, 26, 26, 0.25);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.infopanel {
+  height: 100%;
+}
+.statpanel {
+  padding: 16px 0px;
+}
+
+.statpanel-title {
+  margin-bottom: 10px;
+}
+
+.infobox {
+  font-family: "IBM Plex Sans";
+  width: 80%;
+}
+
+.infobox h1 {
+  font-size: 35px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+.infobox ul {
+  color: white;
+  font-size: 17px;
+  list-style-type: decimal;
+  list-style-position: inside;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+
+.infobox li {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.entry-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.entry-wrapper .entry {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin: 20px;
+}
+
+.entry-wrapper .entry h1 {
+  position: absolute;
+  font-size: 15px;
+  left: 0;
+  bottom: 4px;
+}
+
+.outer-bar {
+  right: 0;
+  position: absolute;
+  height: 10px;
+  width: 100%;
+  background-color: rgba(26, 26, 26, 0.25);
+  border-radius: 20px;
+}
+
+.inner-bar {
+  height: 100%;
+  background-color: white;
+  border-radius: 20px;
+  max-width: 100%;
+  width: 0%;
+  transition: width 3s;
+}
+
+img {
+  height: 36px;
+  width: 36px;
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+}
+
+.error-message {
+  font-family: "IBM Plex Sans";
+  font-size: 50px;
+  z-index: 10;
+  color: white;
+  position: relative;
+}
+
+.extra {
+  font-family: "IBM Plex Sans";
+  position: absolute;
+  top: 20px;
+}
