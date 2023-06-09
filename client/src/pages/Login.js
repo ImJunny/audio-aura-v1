@@ -32,6 +32,9 @@ function Login() {
           Login to Spotify
           <img className={styles["login-logo"]} src={img} />
         </button>
+        <h1>
+          *Under development. Must need to be authorized in development mode.*
+        </h1>
       </div>
     </div>
   );
