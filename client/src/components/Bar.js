@@ -7,7 +7,7 @@ export default function Stat({ type, number }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setNum(number);
-    }, 0);
+    }, 500);
     return () => clearTimeout(timer);
   }, [number]);
 
