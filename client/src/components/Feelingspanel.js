@@ -3,7 +3,7 @@ import { getFeelings } from "../scripts/feelings.js";
 import { useState, useEffect } from "react";
 import Bar from "./Bar.js";
 
-export default function Moodpanel({ f, r }) {
+export default function Feelingspanel({ f }) {
   const [valence, setValence] = useState([]);
   const [energy, setEnergy] = useState([]);
 

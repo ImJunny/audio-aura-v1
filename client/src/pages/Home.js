@@ -32,20 +32,16 @@ export default function Home() {
       const data = await res.json();
       if (data === "no token") {
         setLeavePage(true);
-        console.log("error no token");
         return;
       } else if (data === "not enough tracks") {
         setErrorPage(true);
-        console.log("error not enough tracks");
         setReady(true);
         return;
       }
-      console.log("gathering info");
       setTracks(data.topTracks.items);
       setFeatures(data.audioFeatures.audio_features);
       setArtists(data.topArtists.items);
       setReady(true);
-      console.log("is ready");
     }
     getData();
   }, []);

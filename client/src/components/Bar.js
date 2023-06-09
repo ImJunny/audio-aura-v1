@@ -5,8 +5,11 @@ export default function Stat({ type, number }) {
   const [num, setNum] = useState(0);
 
   useEffect(() => {
-    setNum(number);
-  }, [num]);
+    const timer = setTimeout(() => {
+      setNum(number);
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [number]);
 
   return (
     <div className={styles["entry"]}>
