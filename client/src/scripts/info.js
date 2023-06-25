@@ -41,7 +41,7 @@ function getTopGenres(artists) {
     }
   });
   topGenres = topGenres.sort(compareByAmount).reverse();
-  topGenres = topGenres.slice(0, 5);
+  topGenres = topGenres.slice(0, 1);
   topGenres = topGenres.map((item) => item.name);
 
   return topGenres;

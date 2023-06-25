@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import styles from "../styles/login.module.css";
 import { getBackground } from "../scripts/background.js";
 import img from "../images/spotify-small.png";
@@ -9,9 +10,9 @@ function Login() {
   const [shapes, setShapes] = useState([]);
 
   useEffect(() => {
-    fetch("/authenticate", (req, res) => {})
-      .then((res) => res.json())
-      .then((data) => setRedirectUrl(data));
+    axios
+      .get("/authenticate", (req, res) => {})
+      .then((res) => setRedirectUrl(res.data));
 
     let background = getBackground(null, null);
     setGradient(background[0]);
@@ -32,9 +33,6 @@ function Login() {
           Login to Spotify
           <img className={styles["login-logo"]} src={img} />
         </button>
-        <h1>
-          *Under development. Must need to be authorized in development mode.*
-        </h1>
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ export default function Musicalitypanel({ f }) {
     >
       <div className={styles["entry-wrapper"]}>
         <h1 className={styles["statpanel-title"]}>Musicality</h1>
-        <Bar type={"Vocality"} number={vocality} key={"1"} />
+
         <Bar type={"Acousticness"} number={acousticness} key={"2"} />
         <Bar type={"Danceability"} number={danceability} key={"3"} />
       </div>

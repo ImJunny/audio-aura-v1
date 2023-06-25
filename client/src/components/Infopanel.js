@@ -3,7 +3,7 @@ import { getInfo } from "../scripts/info.js";
 import { useState, useEffect } from "react";
 import Extra from "../components/Extra.js";
 
-export default function Infopanel({ t, a, setHovered }) {
+export default function Infopanel({ t, a, setHovered, date }) {
   const [tracks, setTracks] = useState([]);
   const [artists, setArtists] = useState([]);
   const [genres, setGenres] = useState([]);
@@ -27,7 +27,7 @@ export default function Infopanel({ t, a, setHovered }) {
           {tracks.map((item, i) => (
             <li
               onMouseEnter={() => handleHover(item)}
-              onMouseLeave={() => handleHover("")}
+              onMouseLeave={() => handleHover(date)}
               key={`track-${i}`}
             >
               {item}
@@ -39,23 +39,17 @@ export default function Infopanel({ t, a, setHovered }) {
           {artists.map((item, i) => (
             <li
               onMouseEnter={() => handleHover(item)}
-              onMouseLeave={() => handleHover("")}
+              onMouseLeave={() => handleHover(date)}
               key={`artist-${i}`}
             >
               {item}
             </li>
           ))}
         </ul>
-        <h1>Top Genres</h1>
-        <ul>
+        <h1>Top Genre</h1>
+        <ul style={{ listStyleType: `none`, marginBottom: 0 }}>
           {genres.map((item, i) => (
-            <li
-              onMouseEnter={() => handleHover(item)}
-              onMouseLeave={() => handleHover("")}
-              key={`genre-${i}`}
-            >
-              {item}
-            </li>
+            <li key={`genre-${i}`}>{item}</li>
           ))}
         </ul>
       </div>

@@ -6,7 +6,7 @@ function randomPos() {
   return Math.random() * (window.innerHeight - 100) - 200;
 }
 function randomSize() {
-  return Math.floor(Math.random() * 1000) + 100;
+  return Math.floor(Math.random() * 400) + 100;
 }
 
 function Shape({ color }) {
@@ -45,7 +45,8 @@ function Shape({ color }) {
   }, []);
 
   const componentStyle = {
-    position: "fixed",
+    filter: "blur(50px)",
+    position: "absolute",
     top: `${position.top}px`,
     left: `${position.left}px`,
     transition: "top 16s, left 16s, width 7s, height 7s",
@@ -53,6 +54,7 @@ function Shape({ color }) {
     width: `${size.width}px`,
     backgroundColor: `${color}`,
     borderRadius: "50%",
+    zIndex: "1",
   };
 
   return <div style={componentStyle}></div>;

@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const axios = require("axios");
 require("dotenv").config();
 
 const clientId = process.env.CLIENT_ID;
@@ -47,73 +48,77 @@ app.post("/postCode", async (req, res) => {
 });
 
 function setTokens() {
-  return fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: "Basic " + btoa(`${clientId}:${clientSecret}`),
-    },
-    body: new URLSearchParams({
-      grant_type: "authorization_code",
-      code: authCode,
-      redirect_uri: redirectUri,
-      client_id: clientId,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      token = data.access_token;
-      tokenRef = data.refresh_token;
+  return axios
+    .post(
+      "https://accounts.spotify.com/api/token",
+      new URLSearchParams({
+        grant_type: "authorization_code",
+        code: authCode,
+        redirect_uri: redirectUri,
+        client_id: clientId,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: "Basic " + btoa(`${clientId}:${clientSecret}`),
+        },
+      }
+    )
+    .then((res) => {
+      token = res.data.access_token;
+      tokenRef = res.data.refresh_token;
+    })
+    .catch(() => {
+      token = undefined;
     });
 }
 
 function getTopTracks() {
-  return fetch(
-    "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50&offset=0",
-    {
-      method: "GET",
-      headers: { Authorization: "Bearer " + token },
-    }
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      return data;
+  return axios
+    .get(
+      "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50&offset=0",
+      {
+        headers: { Authorization: "Bearer " + token },
+      }
+    )
+    .then((res) => {
+      return res.data;
     });
 }
 
 function getAudioFeatures(topTracksArr) {
   topTracksArr = topTracksArr.map((track) => track.id);
   let idsQuery = topTracksArr.join(",");
-  return fetch("https://api.spotify.com/v1/audio-features?ids=" + idsQuery, {
-    method: "GET",
-    headers: { Authorization: "Bearer " + token },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      return data;
+  return axios
+    .get("https://api.spotify.com/v1/audio-features?ids=" + idsQuery, {
+      headers: { Authorization: "Bearer " + token },
+    })
+    .then((res) => {
+      return res.data;
     });
 }
 
 function getTopArtists() {
-  return fetch(
-    "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50&offset=0",
-    {
-      method: "GET",
-      headers: { Authorization: "Bearer " + token },
-    }
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      return data;
+  return axios
+    .get(
+      "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50&offset=0",
+      {
+        headers: { Authorization: "Bearer " + token },
+      }
+    )
+    .then((res) => {
+      return res.data;
     });
 }
 
 //run build production
+/*
 const buildpath = path.join(__dirname, "..", "/client/build");
 app.use(express.static(buildpath));
 app.get("*", (req, res) => {
   res.sendFile(buildpath + "/index.html");
 });
+*/
 
 app.listen(PORT, () => {
   console.log("listening on port " + PORT);

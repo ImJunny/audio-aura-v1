@@ -1,14 +1,14 @@
 //import styles from "../styles/home.module.css";
 import { useEffect, useState } from "react";
+import axios from "axios";
 import Background from "../components/Background.js";
-import styles from "../styles/home.module.css";
 import Infopanel from "../components/Infopanel.js";
 import Extra from "../components/Extra.js";
-import Musicalitypanel from "../components/Musicalitypanel.js";
 import Feelingspanel from "../components/Feelingspanel.js";
 import Patternspanel from "../components/Patternspanel.js";
 import { Navigate } from "react-router-dom";
-import img from "../images/spotify-small.png";
+import Filter from "../components/Filter.js";
+import styles from "../styles/home.module.css";
 
 export default function Home() {
   //states
@@ -19,17 +19,19 @@ export default function Home() {
   const [ready, setReady] = useState(false);
   const [leavePage, setLeavePage] = useState(false);
   const [errorPage, setErrorPage] = useState(false);
-  const [hovered, setHovered] = useState("");
+  const currDate = new Date();
+  const pastDate = new Date(currDate.getTime() - 28 * 24 * 60 * 60 * 1000);
+  const fullDate =
+    pastDate.toLocaleDateString() + "-" + currDate.toLocaleDateString();
+  const [hovered, setHovered] = useState(fullDate);
 
   //useEffect
   useEffect(() => {
     async function getData() {
-      const res = await fetch("/postCode", {
-        method: "POST",
+      const res = await axios.post("/postCode", codeQuery, {
         headers: { "Content-Type": "text/plain" },
-        body: codeQuery,
       });
-      const data = await res.json();
+      const data = await res.data;
       if (data === "no token") {
         setLeavePage(true);
         return;
@@ -49,7 +51,9 @@ export default function Home() {
   return (
     <div
       className={styles["display"]}
-      style={{ filter: `brightness(${ready ? 100 : 0}%)` }}
+      style={{
+        filter: `brightness(${ready ? 100 : 0}%)`,
+      }}
     >
       {leavePage ? (
         <Navigate to="/" />
@@ -58,23 +62,26 @@ export default function Home() {
       ) : ready ? (
         <>
           <Background
-            className={styles["background"]}
             t={tracks}
             a={artists}
             f={features}
+            h={hovered}
           ></Background>
           <div className={styles["wrapper"]}>
-            <div className={styles["container"]}>
-              <Infopanel t={tracks} a={artists} setHovered={setHovered} />
-              <img src={img}></img>
+            <div className={`${styles["container"]} ${styles["container1"]}`}>
+              <Infopanel
+                t={tracks}
+                a={artists}
+                setHovered={setHovered}
+                date={fullDate}
+              />
             </div>
-            <div className={styles["container"]}>
+            <div className={`${styles["container"]} ${styles["container2"]}`}>
               <Feelingspanel f={features} />
-              <Musicalitypanel f={features} />
               <Patternspanel t={tracks} />
+              <Filter />
             </div>
           </div>
-          <Extra t={hovered} />
         </>
       ) : null}
     </div>
