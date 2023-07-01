@@ -116,14 +116,11 @@ function getTopArtists() {
     });
 }
 
-//run build production
-/*
 const buildpath = path.join(__dirname, "..", "/client/build");
 app.use(express.static(buildpath));
 app.get("*", (req, res) => {
   res.sendFile(buildpath + "/index.html");
 });
-*/
 
 app.listen(PORT, () => {
   console.log("listening on port " + PORT);
