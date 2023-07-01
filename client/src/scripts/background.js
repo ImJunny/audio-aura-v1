@@ -164,6 +164,7 @@ function makeShapes() {
   }
 }
 
+//MAIN FUNCTION
 export function getBackground(features, artists, tracks) {
   //only for login page
   if (features === null && artists === null) {
@@ -179,6 +180,22 @@ export function getBackground(features, artists, tracks) {
     }
     return [grad, shap];
   }
+
+  //reset saved global variables
+  categories = [
+    { valence: VALLOW, energy: ENLOW, amount: 0 },
+    { valence: VALLOW, energy: ENNEUTRAL, amount: 0 },
+    { valence: VALLOW, energy: ENHIGH, amount: 0 },
+    { valence: VALNEUTRAL, energy: ENLOW, amount: 0 },
+    { valence: VALNEUTRAL, energy: ENNEUTRAL, amount: 0 },
+    { valence: VALNEUTRAL, energy: ENHIGH, amount: 0 },
+    { valence: VALHIGH, energy: ENLOW, amount: 0 },
+    { valence: VALHIGH, energy: ENNEUTRAL, amount: 0 },
+    { valence: VALHIGH, energy: ENHIGH, amount: 0 },
+  ];
+  shapes = [];
+  hue = 0;
+
   audioFeatures = features;
   topArtists = artists;
   topTracks = tracks;

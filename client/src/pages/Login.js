@@ -24,7 +24,7 @@ function Login() {
       <div className={styles.overlay}></div>
       {shapes}
       <div id={styles["login-container"]}>
-        <h1 id={styles["login-title"]}>Audio Aura</h1>
+        <h1 id={styles["login-title"]}>Audio Aura (BETA)</h1>
         <h1 id={styles["login-subtitle"]}>Visualize your music taste</h1>
         <button
           id={styles["login-button"]}

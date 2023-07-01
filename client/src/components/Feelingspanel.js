@@ -11,7 +11,7 @@ export default function Feelingspanel({ f }) {
     let info = getFeelings(f);
     setValence(info[0]);
     setEnergy(info[1]);
-  }, []);
+  }, [f]);
 
   return (
     <div

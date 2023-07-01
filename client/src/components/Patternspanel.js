@@ -3,7 +3,7 @@ import { getStats } from "../scripts/stats.js";
 import { useState, useEffect } from "react";
 import Bar from "./Bar.js";
 
-export default function Statpanel({ t }) {
+export default function Patternspanel({ t }) {
   const [popularity, setPopularity] = useState([]);
   const [variety, setVariety] = useState([]);
   const [recency, setRecency] = useState([]);
@@ -13,7 +13,7 @@ export default function Statpanel({ t }) {
     setPopularity(info[0]);
     setVariety(info[1]);
     setRecency(info[2]);
-  }, []);
+  }, [t]);
 
   return (
     <div

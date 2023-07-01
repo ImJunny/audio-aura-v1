@@ -9,6 +9,7 @@ const redirectUri = process.env.REDIRECT_URI;
 let authCode;
 let token;
 let tokenRef;
+let term = "";
 
 const app = express();
 const PORT = 5000;
@@ -29,9 +30,13 @@ app.get("/authenticate", (req, res) => {
 });
 
 app.post("/postCode", async (req, res) => {
-  authCode = req.body;
+  authCode = req.body.code;
+  term = req.body.term;
+  token = req.body.token;
 
-  await setTokens();
+  if (token === undefined) {
+    await setTokens();
+  }
   if (token === undefined) {
     res.json("no token");
     return;
@@ -43,7 +48,7 @@ app.post("/postCode", async (req, res) => {
   }
   let audioFeatures = await getAudioFeatures(topTracks.items);
   let topArtists = await getTopArtists();
-  let data = { topTracks, audioFeatures, topArtists };
+  let data = { topTracks, audioFeatures, topArtists, token };
   res.json(data);
 });
 
@@ -76,7 +81,7 @@ function setTokens() {
 function getTopTracks() {
   return axios
     .get(
-      "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=50&offset=0",
+      `https://api.spotify.com/v1/me/top/tracks?time_range=${term}_term&limit=50&offset=0`,
       {
         headers: { Authorization: "Bearer " + token },
       }
@@ -101,7 +106,7 @@ function getAudioFeatures(topTracksArr) {
 function getTopArtists() {
   return axios
     .get(
-      "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50&offset=0",
+      `https://api.spotify.com/v1/me/top/artists?time_range=${term}_term&limit=50&offset=0`,
       {
         headers: { Authorization: "Bearer " + token },
       }

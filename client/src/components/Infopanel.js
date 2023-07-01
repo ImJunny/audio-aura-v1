@@ -1,22 +1,28 @@
 import styles from "../styles/home.module.css";
 import { getInfo } from "../scripts/info.js";
-import { useState, useEffect } from "react";
-import Extra from "../components/Extra.js";
+import { useState, useEffect, useRef } from "react";
 
 export default function Infopanel({ t, a, setHovered, date }) {
   const [tracks, setTracks] = useState([]);
   const [artists, setArtists] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [trackPreviews, setTrackPreviews] = useState([]);
+  const [audio, setAudio] = useState(null);
 
   useEffect(() => {
     let info = getInfo(t, a);
     setTracks(info[0]);
     setArtists(info[1]);
     setGenres(info[2]);
-  }, []);
+    //setTrackPreviews(info[3]);
+  }, [t, a]);
 
-  function handleHover(track) {
-    setHovered(track);
+  function handleHover(index) {
+    setHovered(tracks[index]);
+  }
+
+  function handleUnhover() {
+    setHovered(date);
   }
 
   return (
@@ -26,8 +32,8 @@ export default function Infopanel({ t, a, setHovered, date }) {
         <ul>
           {tracks.map((item, i) => (
             <li
-              onMouseEnter={() => handleHover(item)}
-              onMouseLeave={() => handleHover(date)}
+              onMouseEnter={() => handleHover(i)}
+              onMouseLeave={() => handleUnhover()}
               key={`track-${i}`}
             >
               {item}
@@ -38,8 +44,8 @@ export default function Infopanel({ t, a, setHovered, date }) {
         <ul>
           {artists.map((item, i) => (
             <li
-              onMouseEnter={() => handleHover(item)}
-              onMouseLeave={() => handleHover(date)}
+              onMouseEnter={() => handleHover(i)}
+              onMouseLeave={() => handleUnhover()}
               key={`artist-${i}`}
             >
               {item}

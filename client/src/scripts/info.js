@@ -47,6 +47,19 @@ function getTopGenres(artists) {
   return topGenres;
 }
 
+/*
+function getTrackPreviews(tracks) {
+  return tracks
+    .map((item) => {
+      return item.preview_url;
+    })
+    .slice(0, 5);
+}
+function getTrackCovers(tracks) {
+  console.log(tracks);
+}
+*/
+
 function compareByAmount(a, b) {
   if (a.amount < b.amount) {
     return -1;
@@ -61,5 +74,6 @@ export function getInfo(tracks, artists) {
   let topTracks = getTopTracks(tracks);
   let topArtists = getTopArtists(artists);
   let topGenres = getTopGenres(artists);
+  //let trackPreviews = getTrackPreviews(tracks);
   return [topTracks, topArtists, topGenres];
 }

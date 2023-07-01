@@ -1,11 +1,25 @@
 import img from "../images/spotify-small.png";
 import styles from "../styles/home.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function Filter() {
+export default function Filter({ setTerm }) {
   const [filter, setFilter] = useState(false);
-  const ranges = ["1m", "6m", "1y"];
+  const ranges = ["4w", "6m", "1y"];
   const [time, setTime] = useState(ranges[0]);
+
+  function handleTerm() {
+    if (time === "4w") {
+      setTerm("short");
+    } else if (time === "6m") {
+      setTerm("medium");
+    } else {
+      setTerm("long");
+    }
+  }
+
+  useEffect(() => {
+    handleTerm();
+  }, [time, setTerm]);
 
   return (
     <div className={styles["filter-wrapper"]}>
