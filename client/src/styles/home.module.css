@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap");
 
 .display {
+  height: 900px;
   width: 450px;
-  height: 100%;
   transition: filter 5s ease;
   background-color: black;
   padding: 14px;
@@ -21,12 +21,38 @@
   top: -10px;
   transform: scale(0.9);
   display: flex;
+  flex-direction: column;
   padding: 15px;
   box-sizing: border-box;
-  justify-content: right;
+  justify-content: space-between;
 }
 
-/*-2*/
+.titles {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+}
+
+.title {
+  font-family: "IBM Plex Sans";
+  font-weight: bold;
+  color: black;
+  font-size: 25px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: auto;
+}
+
+.subtitle {
+  font-family: "IBM Plex Sans";
+  font-weight: bold;
+  color: black;
+  font-size: 18px;
+}
+
 .background {
   width: 100%;
   height: 420px;
@@ -37,6 +63,13 @@
   top: 0;
   filter: blur(0);
 }
+
+.background .image {
+  width: 100%;
+  height: auto;
+  z-index: 3;
+}
+
 .gradient {
   height: 100%;
   width: 100%;
@@ -64,7 +97,6 @@
   font-weight: 200;
 }
 
-/*1*/
 .container {
   width: 100%;
   display: flex;
@@ -168,7 +200,7 @@
   border-radius: 20px;
   max-width: 100%;
   width: 0%;
-  transition: width 1s;
+  transition: width 0.8s;
 }
 
 .error-message {
@@ -177,14 +209,6 @@
   z-index: 10;
   color: white;
   position: relative;
-}
-
-.extra {
-  font-family: "IBM Plex Sans";
-  position: absolute;
-  bottom: 20px;
-  color: black;
-  font-size: 25px;
 }
 
 .filter-wrapper {
@@ -235,4 +259,57 @@ img {
 
 img:hover {
   cursor: pointer;
+}
+
+.modal-backdrop {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 4;
+  background-color: rgb(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  height: 30%;
+  background-color: white;
+  flex-direction: column;
+  padding: 25px;
+  box-sizing: border-box;
+  border-radius: 0px;
+}
+
+.modal h1 {
+  color: black;
+  font-family: "IBM Plex Sans";
+}
+
+.modal h2 {
+  color: black;
+  font-family: "IBM Plex Sans";
+  font-size: 18px;
+  font-weight: lighter;
+  text-align: center;
+}
+
+.modal button {
+  background-color: #000000;
+  font-family: Arial;
+  border: 0;
+  border-radius: 30px;
+  font-size: 15px;
+  color: white;
+  display: flex;
+  padding: 6px 15px;
+}
+
+.modal button:hover {
+  cursor: pointer;
+  color: rgb(235, 235, 235);
 }

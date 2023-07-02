@@ -52,7 +52,6 @@ export default function Filter({ setTerm }) {
         onClick={() => {
           filter ? setFilter(false) : setFilter(true);
         }}
-        style={{ transform: `rotate(${filter ? -45 : 0}deg)` }}
       ></img>
     </div>
   );

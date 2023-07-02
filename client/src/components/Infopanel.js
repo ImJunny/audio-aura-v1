@@ -2,27 +2,54 @@ import styles from "../styles/home.module.css";
 import { getInfo } from "../scripts/info.js";
 import { useState, useEffect, useRef } from "react";
 
-export default function Infopanel({ t, a, setHovered, date }) {
+export default function Infopanel({
+  t,
+  a,
+  setTitle,
+  setSubtitle,
+  fullDate,
+  setImage,
+}) {
   const [tracks, setTracks] = useState([]);
   const [artists, setArtists] = useState([]);
   const [genres, setGenres] = useState([]);
   const [trackPreviews, setTrackPreviews] = useState([]);
-  const [audio, setAudio] = useState(null);
+  const [trackImages, setTrackImages] = useState([]);
+  const [artistImages, setArtistImages] = useState([]);
+  const audioRefs = useRef([]);
 
   useEffect(() => {
     let info = getInfo(t, a);
     setTracks(info[0]);
     setArtists(info[1]);
     setGenres(info[2]);
-    //setTrackPreviews(info[3]);
+    setTrackPreviews(info[3]);
+    setTrackImages(info[4]);
+    setArtistImages(info[5]);
   }, [t, a]);
 
-  function handleHover(index) {
-    setHovered(tracks[index]);
+  function handleHover(item, i, type) {
+    if (type === "track") {
+      setTitle(item.name);
+      setSubtitle(item.artist);
+      setImage(trackImages[i]);
+      if (trackPreviews[i] && audioRefs.current[i].paused) {
+        audioRefs.current[i].volume = 0.01;
+        audioRefs.current[i].play();
+      }
+    } else {
+      setTitle(item);
+      setSubtitle("");
+      setImage(artistImages[i]);
+    }
   }
 
-  function handleUnhover() {
-    setHovered(date);
+  function handleUnhover(i) {
+    setTitle("Audio Aura");
+    setSubtitle(fullDate);
+    setImage(null);
+    audioRefs.current[i].pause();
+    audioRefs.current[i].currentTime = 0;
   }
 
   return (
@@ -32,11 +59,15 @@ export default function Infopanel({ t, a, setHovered, date }) {
         <ul>
           {tracks.map((item, i) => (
             <li
-              onMouseEnter={() => handleHover(i)}
-              onMouseLeave={() => handleUnhover()}
+              onMouseEnter={() => handleHover(item, i, "track")}
+              onMouseLeave={() => handleUnhover(i)}
               key={`track-${i}`}
             >
-              {item}
+              {item.name}
+              <audio
+                ref={(ref) => (audioRefs.current[i] = ref)}
+                src={trackPreviews[i]}
+              />
             </li>
           ))}
         </ul>
@@ -44,8 +75,8 @@ export default function Infopanel({ t, a, setHovered, date }) {
         <ul>
           {artists.map((item, i) => (
             <li
-              onMouseEnter={() => handleHover(i)}
-              onMouseLeave={() => handleUnhover()}
+              onMouseEnter={() => handleHover(item, i)}
+              onMouseLeave={() => handleUnhover(i)}
               key={`artist-${i}`}
             >
               {item}

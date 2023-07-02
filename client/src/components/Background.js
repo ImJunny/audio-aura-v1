@@ -1,11 +1,13 @@
 import { getBackground } from "../scripts/background.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "../styles/home.module.css";
 
-export default function Background({ t, a, f, h }) {
+export default function Background({ t, a, f, title, subtitle, image }) {
   const [gradient, setGradient] = useState({});
   const [shapes, setShapes] = useState([]);
   const [hue, setHue] = useState(0);
+  const titlesRef = useRef(null);
+  const titleRef = useRef(null);
 
   useEffect(() => {
     let background = getBackground(f, a, t);
@@ -13,6 +15,14 @@ export default function Background({ t, a, f, h }) {
     setShapes(background[1]);
     setHue(background[2]);
   }, [t, a, f]);
+
+  useEffect(() => {
+    if (titleRef.current.offsetWidth > titlesRef.current.offsetWidth) {
+      titleRef.current.style.width = "100%";
+    } else {
+      titleRef.current.style.width = "auto";
+    }
+  }, [title]);
 
   return (
     <div className={styles["frame"]}>
@@ -28,8 +38,18 @@ export default function Background({ t, a, f, h }) {
           className={styles["overlay"]}
           style={{ filter: `hue-rotate(${hue}deg)` }}
         ></div>
+        <img
+          src={image}
+          className={styles["image"]}
+          style={{ visibility: `${image ? `visible` : `hidden`}` }}
+        />
       </div>
-      <h1 className={styles["extra"]}>{h}</h1>
+      <div className={styles["titles"]} ref={titlesRef}>
+        <span className={styles["title"]} ref={titleRef}>
+          {title}
+        </span>
+        <span className={styles["subtitle"]}>{subtitle}</span>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Background from "../components/Background.js";
 import Infopanel from "../components/Infopanel.js";
@@ -6,6 +6,7 @@ import Feelingspanel from "../components/Feelingspanel.js";
 import Patternspanel from "../components/Patternspanel.js";
 import { Navigate } from "react-router-dom";
 import Filter from "../components/Filter.js";
+import Modal from "../components/Modal.js";
 import styles from "../styles/home.module.css";
 
 export default function Home() {
@@ -22,11 +23,21 @@ export default function Home() {
   const [errorPage, setErrorPage] = useState(false);
   //states date
   const currDate = new Date();
-  const pastDate = new Date(currDate.getTime() - 28 * 24 * 60 * 60 * 1000);
-
-  const fullDate =
+  let pastDate = "";
+  if (term === "short") {
+    pastDate = new Date(currDate.getTime() - 28 * 24 * 60 * 60 * 1000);
+  } else if (term === "medium") {
+    pastDate = new Date(currDate.getTime() - 180 * 24 * 60 * 60 * 1000);
+  } else {
+    pastDate = new Date(currDate.getTime() - 365 * 24 * 60 * 60 * 1000);
+  }
+  let fullDate =
     pastDate.toLocaleDateString() + "-" + currDate.toLocaleDateString();
-  const [hovered, setHovered] = useState(fullDate);
+  //states elements
+  const [title, setTitle] = useState("Audio Aura");
+  const [subtitle, setSubtitle] = useState(fullDate);
+  const [image, setImage] = useState(null);
+  const [showModal, setShowModal] = useState(true);
 
   //useEffect
   useEffect(() => {
@@ -50,6 +61,8 @@ export default function Home() {
       setArtists(data.topArtists.items);
       setToken(data.token);
       setReady(true);
+
+      setSubtitle(fullDate);
     })();
   }, [term]);
 
@@ -70,15 +83,19 @@ export default function Home() {
             t={tracks}
             a={artists}
             f={features}
-            h={hovered}
+            title={title}
+            subtitle={subtitle}
+            image={image}
           ></Background>
           <div className={styles["wrapper"]}>
             <div className={`${styles["container"]} ${styles["container1"]}`}>
               <Infopanel
                 t={tracks}
                 a={artists}
-                setHovered={setHovered}
-                date={fullDate}
+                setTitle={setTitle}
+                setSubtitle={setSubtitle}
+                fullDate={fullDate}
+                setImage={setImage}
               />
             </div>
             <div className={`${styles["container"]} ${styles["container2"]}`}>
@@ -87,6 +104,7 @@ export default function Home() {
               <Filter setTerm={setTerm} />
             </div>
           </div>
+          {showModal ? <Modal setShowModal={setShowModal} /> : null}
         </>
       ) : null}
     </div>

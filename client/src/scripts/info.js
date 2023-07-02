@@ -7,16 +7,9 @@ function getTopArtists(artists) {
 
 //top tracks
 function getTopTracks(tracks) {
-  tracks = tracks.slice(0, 5);
-  tracks = tracks.map((item) => item.name);
-  /*
-  tracks.forEach((item, i) => {
-    if (item.includes("feat") || item.includes("ft")) {
-      tracks[i] = item.substring(0, item.indexOf("(f"));
-    }
-  });
-  */
-  return tracks;
+  return tracks
+    .slice(0, 5)
+    .map((item) => ({ name: item.name, artist: item.artists[0].name }));
 }
 
 //top genres
@@ -47,18 +40,17 @@ function getTopGenres(artists) {
   return topGenres;
 }
 
-/*
 function getTrackPreviews(tracks) {
-  return tracks
-    .map((item) => {
-      return item.preview_url;
-    })
-    .slice(0, 5);
+  return tracks.slice(0, 5).map((item) => item.preview_url);
 }
-function getTrackCovers(tracks) {
-  console.log(tracks);
+
+function getTrackImages(tracks) {
+  return tracks.slice(0, 5).map((item) => item.album.images[0].url);
 }
-*/
+
+function getArtistImages(artists) {
+  return artists.slice(0, 5).map((item) => item.images[0].url);
+}
 
 function compareByAmount(a, b) {
   if (a.amount < b.amount) {
@@ -74,6 +66,15 @@ export function getInfo(tracks, artists) {
   let topTracks = getTopTracks(tracks);
   let topArtists = getTopArtists(artists);
   let topGenres = getTopGenres(artists);
-  //let trackPreviews = getTrackPreviews(tracks);
-  return [topTracks, topArtists, topGenres];
+  let trackPreviews = getTrackPreviews(tracks);
+  let trackImages = getTrackImages(tracks);
+  let artistImages = getArtistImages(artists);
+  return [
+    topTracks,
+    topArtists,
+    topGenres,
+    trackPreviews,
+    trackImages,
+    artistImages,
+  ];
 }
