@@ -34,7 +34,7 @@ export default function Infopanel({
       setSubtitle(item.artist);
       setImage(trackImages[i]);
       if (trackPreviews[i] && audioRefs.current[i].paused) {
-        audioRefs.current[i].volume = 0.01;
+        audioRefs.current[i].volume = 0.4;
         audioRefs.current[i].play();
       }
     } else {
