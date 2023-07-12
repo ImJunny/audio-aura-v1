@@ -1,25 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap");
 
 .display {
-  height: 900px;
-  width: 450px;
+  aspect-ratio: 1/2;
+  height: 100%;
   transition: filter 5s ease;
   background-color: black;
-  padding: 14px;
-  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 23px;
+  padding: 20px;
+  box-sizing: border-box;
+  flex-direction: column;
 }
 
 .frame {
   z-index: 0;
+  aspect-ratio: 1/1;
   width: 100%;
-  height: 520px;
   background-color: white;
-  position: absolute;
-  top: -10px;
-  transform: scale(0.9);
+  align-self: flex-start;
+  top: 0;
   display: flex;
   flex-direction: column;
   padding: 15px;
@@ -39,23 +40,28 @@
   font-family: "IBM Plex Sans";
   font-weight: bold;
   color: black;
-  font-size: 25px;
+  font-size: 1.05em;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   width: auto;
+  padding-top: 10px;
 }
 
 .subtitle {
   font-family: "IBM Plex Sans";
   font-weight: bold;
   color: black;
-  font-size: 18px;
+  font-size: 0.78em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: auto;
 }
 
 .background {
+  aspect-ratio: 1/1;
   width: 100%;
-  height: 420px;
   z-index: 1;
   display: flex;
   overflow: hidden;
@@ -88,8 +94,6 @@
   z-index: 0;
   display: flex;
   justify-content: center;
-  top: 485px;
-  position: absolute;
 }
 
 .wrapper h1 {
@@ -101,17 +105,15 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 21px;
+  margin: 20px 0px;
   margin-bottom: 0;
   overflow: hidden;
 }
 
 .container1 {
-  margin-right: 10px;
 }
 
 .container2 {
-  margin-left: 6px;
 }
 
 .panel {
@@ -132,7 +134,7 @@
 }
 
 .statpanel-title {
-  font-size: 23px;
+  font-size: 1em;
   margin-bottom: 10px;
   margin-left: -10px;
 }
@@ -143,16 +145,16 @@
 }
 
 .infobox h1 {
-  font-size: 23px;
+  font-size: 1em;
   margin-bottom: 10px;
 }
 
 .infobox ul {
   color: white;
-  font-size: 15px;
+  font-size: 0.63em;
   list-style-type: decimal;
   list-style-position: inside;
-  margin-bottom: 10px;
+  margin-bottom: 1.25em;
   margin-left: 10px;
 }
 
@@ -182,13 +184,13 @@
 }
 
 .entry-wrapper .entry h1 {
-  font-size: 15px;
+  font-size: 0.63em;
   margin-bottom: 5px;
 }
 
 .outer-bar {
   position: relative;
-  height: 6px;
+  height: 0.35em;
   width: 100%;
   background-color: rgb(65, 65, 65);
   border-radius: 20px;
@@ -241,7 +243,7 @@
   position: relative;
   margin-right: 15px;
   font-family: "IBM Plex Sans";
-  font-size: 15px;
+  font-size: 0.63em;
 }
 
 .filter-wrapper li:hover {
@@ -249,8 +251,8 @@
 }
 
 img {
-  height: 36px;
-  width: 36px;
+  aspect-ratio: 1/1;
+  height: 1.6em;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -288,6 +290,7 @@ img:hover {
 .modal h1 {
   color: black;
   font-family: "IBM Plex Sans";
+  font-size: 1rem;
 }
 
 .modal h2 {

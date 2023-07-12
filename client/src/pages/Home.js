@@ -1,13 +1,14 @@
 import { useEffect, useState, useRef } from "react";
+import { Navigate } from "react-router-dom";
+import { format } from "date-fns";
 import axios from "axios";
+import styles from "../styles/home.module.css";
 import Background from "../components/Background.js";
 import Infopanel from "../components/Infopanel.js";
 import Feelingspanel from "../components/Feelingspanel.js";
 import Patternspanel from "../components/Patternspanel.js";
-import { Navigate } from "react-router-dom";
 import Filter from "../components/Filter.js";
 import Modal from "../components/Modal.js";
-import styles from "../styles/home.module.css";
 
 export default function Home() {
   //states API
@@ -23,7 +24,7 @@ export default function Home() {
   const [errorPage, setErrorPage] = useState(false);
   //states date
   const currDate = new Date();
-  let pastDate = "";
+  let pastDate;
   if (term === "short") {
     pastDate = new Date(currDate.getTime() - 28 * 24 * 60 * 60 * 1000);
   } else if (term === "medium") {
@@ -32,22 +33,47 @@ export default function Home() {
     pastDate = new Date(currDate.getTime() - 365 * 24 * 60 * 60 * 1000);
   }
   let fullDate =
-    pastDate.toLocaleDateString() + "-" + currDate.toLocaleDateString();
+    format(pastDate, "MM/dd/yy") + " - " + format(currDate, "MM/dd/yy");
   //states elements
   const [title, setTitle] = useState("Audio Aura");
   const [subtitle, setSubtitle] = useState(fullDate);
   const [image, setImage] = useState(null);
   const [showModal, setShowModal] = useState(true);
+  //sizing
+
+  const displayRef = useRef(null);
+
+  function setDimensions() {
+    windowRatio = window.innerWidth / window.innerHeight;
+    if (windowRatio >= 0.5) {
+      displayRef.current.style.height = "100%";
+      displayRef.current.style.width = "auto";
+    } else {
+      displayRef.current.style.width = "100%";
+      displayRef.current.style.height = "auto";
+    }
+    displayRef.current.style.fontSize = `${
+      displayRef.current.offsetWidth * 0.05
+    }px`;
+  }
+  let windowRatio = 0;
+  window.addEventListener("resize", setDimensions);
 
   //useEffect
   useEffect(() => {
     (async () => {
-      const res = await axios.post("/postCode", {
-        code: codeQuery,
-        term: term,
-        token: token,
-      });
+      const res = await axios
+        .post("/postCode", {
+          code: codeQuery,
+          term: term,
+          token: token,
+        })
+        .catch((err) => {
+          setLeavePage(true);
+          return;
+        });
       let data = await res.data;
+
       if (data === "no token") {
         setLeavePage(true);
         return;
@@ -56,6 +82,7 @@ export default function Home() {
         setReady(true);
         return;
       }
+
       setTracks(data.topTracks.items);
       setFeatures(data.audioFeatures.audio_features);
       setArtists(data.topArtists.items);
@@ -72,6 +99,7 @@ export default function Home() {
       style={{
         filter: `brightness(${ready ? 100 : 0}%)`,
       }}
+      ref={displayRef}
     >
       {leavePage ? (
         <Navigate to="/" />

@@ -37,15 +37,18 @@ app.post("/postCode", async (req, res) => {
   if (token === undefined) {
     await setTokens();
   }
+
   if (token === undefined) {
     res.json("no token");
     return;
   }
+
   let topTracks = await getTopTracks();
-  if (topTracks.items.length < 4) {
+  if (topTracks.items.length < 5) {
     res.json("not enough tracks");
     return;
   }
+
   let audioFeatures = await getAudioFeatures(topTracks.items);
   let topArtists = await getTopArtists();
   let data = { topTracks, audioFeatures, topArtists, token };

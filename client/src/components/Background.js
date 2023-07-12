@@ -8,6 +8,7 @@ export default function Background({ t, a, f, title, subtitle, image }) {
   const [hue, setHue] = useState(0);
   const titlesRef = useRef(null);
   const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
 
   useEffect(() => {
     let background = getBackground(f, a, t);
@@ -22,7 +23,13 @@ export default function Background({ t, a, f, title, subtitle, image }) {
     } else {
       titleRef.current.style.width = "auto";
     }
-  }, [title]);
+
+    if (subtitleRef.current.offsetWidth > titlesRef.current.offsetWidth) {
+      subtitleRef.current.style.width = "100%";
+    } else {
+      subtitleRef.current.style.width = "auto";
+    }
+  }, [title, subtitle]);
 
   return (
     <div className={styles["frame"]}>
@@ -48,7 +55,9 @@ export default function Background({ t, a, f, title, subtitle, image }) {
         <span className={styles["title"]} ref={titleRef}>
           {title}
         </span>
-        <span className={styles["subtitle"]}>{subtitle}</span>
+        <span className={styles["subtitle"]} ref={subtitleRef}>
+          {subtitle}
+        </span>
       </div>
     </div>
   );

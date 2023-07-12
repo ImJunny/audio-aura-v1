@@ -31,7 +31,7 @@ export default function Infopanel({
   function handleHover(item, i, type) {
     if (type === "track") {
       setTitle(item.name);
-      setSubtitle(item.artist);
+      setSubtitle(item.artists);
       setImage(trackImages[i]);
       if (trackPreviews[i] && audioRefs.current[i].paused) {
         audioRefs.current[i].volume = 0.4;

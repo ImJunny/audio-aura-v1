@@ -7,9 +7,10 @@ function getTopArtists(artists) {
 
 //top tracks
 function getTopTracks(tracks) {
-  return tracks
-    .slice(0, 5)
-    .map((item) => ({ name: item.name, artist: item.artists[0].name }));
+  return tracks.slice(0, 5).map((track) => ({
+    name: track.name,
+    artists: track.artists.map((artist) => artist.name).join(", "),
+  }));
 }
 
 //top genres
