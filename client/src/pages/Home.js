@@ -59,6 +59,9 @@ export default function Home() {
   }
   let windowRatio = 0;
   window.addEventListener("resize", setDimensions);
+  if (displayRef.current !== null) {
+    setDimensions();
+  }
 
   //useEffect
   useEffect(() => {
