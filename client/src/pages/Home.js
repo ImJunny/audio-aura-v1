@@ -42,6 +42,7 @@ export default function Home() {
   //sizing
 
   const displayRef = useRef(null);
+  const backgroundRef = useRef(null);
 
   function setDimensions() {
     windowRatio = window.innerWidth / window.innerHeight;
@@ -114,6 +115,7 @@ export default function Home() {
             title={title}
             subtitle={subtitle}
             image={image}
+            ref={backgroundRef}
           ></Background>
           <div className={styles["wrapper"]}>
             <div className={`${styles["container"]} ${styles["container1"]}`}>

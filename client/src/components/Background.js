@@ -1,21 +1,40 @@
 import { getBackground } from "../scripts/background.js";
 import { useState, useEffect, useRef } from "react";
 import styles from "../styles/home.module.css";
+import Shape from "../components/Shape.js";
 
-export default function Background({ t, a, f, title, subtitle, image }) {
+export default function Background({ t, a, f, title, subtitle, image, ref }) {
   const [gradient, setGradient] = useState({});
-  const [shapes, setShapes] = useState([]);
+  const [categoriesTop, setCategoriesTop] = useState([]);
   const [hue, setHue] = useState(0);
   const titlesRef = useRef(null);
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
+  const [shapes, setShapes] = useState([]);
+
+  let displayRef = useRef(null);
+  useEffect(() => {
+    displayRef.current = ref;
+  }, [ref]);
 
   useEffect(() => {
     let background = getBackground(f, a, t);
     setGradient(background[0]);
-    setShapes(background[1]);
+    setCategoriesTop(background[1]);
     setHue(background[2]);
   }, [t, a, f]);
+
+  useEffect(() => {
+    let temp = [];
+    if (categoriesTop.length > 0) {
+      for (let i = 0; i < 5; i++) {
+        console.log(categoriesTop);
+        temp.push(<Shape key={i} color={categoriesTop[i % 3].rgb} />);
+      }
+    }
+
+    setShapes(temp);
+  }, [categoriesTop]);
 
   useEffect(() => {
     if (titleRef.current.offsetWidth > titlesRef.current.offsetWidth) {

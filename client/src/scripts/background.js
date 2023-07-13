@@ -20,7 +20,6 @@ let categories = [
   { valence: VALHIGH, energy: ENHIGH, amount: 0 },
 ];
 let categoriesTop = [];
-let shapes = [];
 let topArtists = [];
 let audioFeatures = [];
 let topTracks = [];
@@ -158,12 +157,6 @@ function setColor() {
   });
 }
 
-function makeShapes() {
-  for (let i = 0; i < 5; i++) {
-    shapes.push(<Shape key={i} color={categoriesTop[i % 3].rgb} />);
-  }
-}
-
 //MAIN FUNCTION
 export function getBackground(features, artists, tracks) {
   //only for login page
@@ -193,7 +186,6 @@ export function getBackground(features, artists, tracks) {
     { valence: VALHIGH, energy: ENNEUTRAL, amount: 0 },
     { valence: VALHIGH, energy: ENHIGH, amount: 0 },
   ];
-  shapes = [];
   hue = 0;
 
   audioFeatures = features;
@@ -206,9 +198,8 @@ export function getBackground(features, artists, tracks) {
   let gradient = {
     background: `linear-gradient(145deg, ${categoriesTop[0].rgb} 20%, ${categoriesTop[1].rgb} 50%, ${categoriesTop[2].rgb} 80%)`,
   };
-  makeShapes(topArtists);
   getHue();
-  return [gradient, shapes, hue];
+  return [gradient, categoriesTop, hue];
 }
 
 function getHue() {
