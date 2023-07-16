@@ -10,7 +10,7 @@ export default function Modal({ setShowModal }) {
           Welcome to your Audio Aura. View your top tracks, artists, genre, and
           visualize your music taste.
         </h2>
-        <h2>This project is under development and problems may occur.</h2>
+        <h2>Note: This project is under development and problems may occur.</h2>
         <button onClick={() => setShowModal(false)}>View</button>
       </div>
     </div>

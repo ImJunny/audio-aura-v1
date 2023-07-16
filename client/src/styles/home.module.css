@@ -277,10 +277,10 @@ img:hover {
   justify-content: space-between;
   align-items: center;
   width: 90%;
-  height: 30%;
+  height: 28%;
   background-color: white;
   flex-direction: column;
-  padding: 25px;
+  padding: 1em;
   box-sizing: border-box;
   border-radius: 0px;
 }
@@ -294,7 +294,7 @@ img:hover {
 .modal h2 {
   color: black;
   font-family: "IBM Plex Sans";
-  font-size: 18px;
+  font-size: 0.78em;
   font-weight: lighter;
   text-align: center;
 }
@@ -303,11 +303,11 @@ img:hover {
   background-color: #000000;
   font-family: Arial;
   border: 0;
-  border-radius: 30px;
-  font-size: 15px;
+  border-radius: 300px;
+  font-size: 0.78em;
   color: white;
   display: flex;
-  padding: 6px 15px;
+  padding: 0.35em 0.7em;
 }
 
 .modal button:hover {

@@ -1,48 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap");
+
 #login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 10;
+  font-size: 23px;
+  justify-content: space-between;
 }
 
 #login-title {
-  font-size: 50px;
-  padding-bottom: 30px;
+  font-size: 3em;
+  padding-bottom: 0.5em;
+  font-family: "IBM Plex Sans";
 }
 
 #login-subtitle {
-  font-size: 20px;
-  padding-bottom: 45px;
+  font-size: 1.75em;
+  padding-bottom: 1.3em;
+  font-family: "IBM Plex Sans";
+  font-weight: 100;
 }
 
 #login-button {
   background-color: #1db954;
   font-family: Arial;
   border: 0;
-  border-radius: 30px;
-  font-size: 25px;
+  border-radius: 300px;
+  font-size: 1.5em;
   color: white;
-  transition: transform 0.15s;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px 10px 6px 15px;
+  padding: 0.2em 0.4em 0.2em 0.65em;
   margin-bottom: 60px;
+  font-family: "IBM Plex Sans";
+  font-weight: 100;
 }
 
 #login-button:hover {
-  transform: scale(1.1);
   cursor: pointer;
 }
 
 .login-logo {
-  width: 30px;
-  height: 30px;
+  width: 0.82em;
+  height: 0.82em;
   position: relative;
   right: 0;
   top: 0;
-  margin-left: 10px;
+  margin-left: 0.41em;
 }
 
 h1 {

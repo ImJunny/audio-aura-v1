@@ -30,7 +30,7 @@ function Login() {
           id={styles["login-button"]}
           onClick={() => (window.location.href = redirectUrl)}
         >
-          Login to Spotify
+          LOGIN TO SPOTIFY
           <img className={styles["login-logo"]} src={img} />
         </button>
       </div>

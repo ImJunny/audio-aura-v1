@@ -95,7 +95,7 @@ export default function Home() {
       setToken(data.token);
       setReady(true);
 
-      setSubtitle("");
+      setTitle(fullDate);
     })();
   }, [term]);
 
