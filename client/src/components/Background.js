@@ -28,7 +28,6 @@ export default function Background({ t, a, f, title, subtitle, image, ref }) {
     let temp = [];
     if (categoriesTop.length > 0) {
       for (let i = 0; i < 5; i++) {
-        console.log(categoriesTop);
         temp.push(<Shape key={i} color={categoriesTop[i % 3].rgb} />);
       }
     }

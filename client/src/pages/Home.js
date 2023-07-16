@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { format } from "date-fns";
 import axios from "axios";
 import styles from "../styles/home.module.css";
+import Moods from "../components/Moods.js";
 import Background from "../components/Background.js";
 import Infopanel from "../components/Infopanel.js";
 import Feelingspanel from "../components/Feelingspanel.js";
@@ -35,8 +36,8 @@ export default function Home() {
   let fullDate =
     format(pastDate, "MM/dd/yy") + " - " + format(currDate, "MM/dd/yy");
   //states elements
-  const [title, setTitle] = useState("Audio Aura");
-  const [subtitle, setSubtitle] = useState(fullDate);
+  const [title, setTitle] = useState(fullDate);
+  const [subtitle, setSubtitle] = useState("");
   const [image, setImage] = useState(null);
   const [showModal, setShowModal] = useState(true);
   //sizing
@@ -59,11 +60,12 @@ export default function Home() {
   }
   let windowRatio = 0;
   window.addEventListener("resize", setDimensions);
-  if (displayRef.current !== null) {
-    setDimensions();
-  }
 
   //useEffect
+  useEffect(() => {
+    setDimensions();
+  }, []);
+
   useEffect(() => {
     (async () => {
       const res = await axios
@@ -93,7 +95,7 @@ export default function Home() {
       setToken(data.token);
       setReady(true);
 
-      setSubtitle(fullDate);
+      setSubtitle("");
     })();
   }, [term]);
 
@@ -111,6 +113,7 @@ export default function Home() {
         <h1 className={styles["error-message"]}>Not enough user data ._.</h1>
       ) : ready ? (
         <>
+          <Moods t={tracks} a={artists} f={features} />
           <Background
             t={tracks}
             a={artists}

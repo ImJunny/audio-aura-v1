@@ -9,15 +9,15 @@ const ENNEUTRAL = 0.78;
 const ENHIGH = 1.0;
 
 let categories = [
-  { valence: VALLOW, energy: ENLOW, amount: 0 },
-  { valence: VALLOW, energy: ENNEUTRAL, amount: 0 },
-  { valence: VALLOW, energy: ENHIGH, amount: 0 },
-  { valence: VALNEUTRAL, energy: ENLOW, amount: 0 },
-  { valence: VALNEUTRAL, energy: ENNEUTRAL, amount: 0 },
-  { valence: VALNEUTRAL, energy: ENHIGH, amount: 0 },
-  { valence: VALHIGH, energy: ENLOW, amount: 0 },
-  { valence: VALHIGH, energy: ENNEUTRAL, amount: 0 },
-  { valence: VALHIGH, energy: ENHIGH, amount: 0 },
+  { valence: VALLOW, energy: ENLOW, amount: 0, name: "melancholic" },
+  { valence: VALLOW, energy: ENNEUTRAL, amount: 0, name: "emotional" },
+  { valence: VALLOW, energy: ENHIGH, amount: 0, name: "passionate" },
+  { valence: VALNEUTRAL, energy: ENLOW, amount: 0, name: "calm" },
+  { valence: VALNEUTRAL, energy: ENNEUTRAL, amount: 0, name: "chill" },
+  { valence: VALNEUTRAL, energy: ENHIGH, amount: 0, name: "energetic" },
+  { valence: VALHIGH, energy: ENLOW, amount: 0, name: "content" },
+  { valence: VALHIGH, energy: ENNEUTRAL, amount: 0, name: "blissful" },
+  { valence: VALHIGH, energy: ENHIGH, amount: 0, name: "elated" },
 ];
 let categoriesTop = [];
 let topArtists = [];
@@ -176,15 +176,15 @@ export function getBackground(features, artists, tracks) {
 
   //reset saved global variables
   categories = [
-    { valence: VALLOW, energy: ENLOW, amount: 0 },
-    { valence: VALLOW, energy: ENNEUTRAL, amount: 0 },
-    { valence: VALLOW, energy: ENHIGH, amount: 0 },
-    { valence: VALNEUTRAL, energy: ENLOW, amount: 0 },
-    { valence: VALNEUTRAL, energy: ENNEUTRAL, amount: 0 },
-    { valence: VALNEUTRAL, energy: ENHIGH, amount: 0 },
-    { valence: VALHIGH, energy: ENLOW, amount: 0 },
-    { valence: VALHIGH, energy: ENNEUTRAL, amount: 0 },
-    { valence: VALHIGH, energy: ENHIGH, amount: 0 },
+    { valence: VALLOW, energy: ENLOW, amount: 0, name: "melancholic" },
+    { valence: VALLOW, energy: ENNEUTRAL, amount: 0, name: "emotional" },
+    { valence: VALLOW, energy: ENHIGH, amount: 0, name: "passionate" },
+    { valence: VALNEUTRAL, energy: ENLOW, amount: 0, name: "calm" },
+    { valence: VALNEUTRAL, energy: ENNEUTRAL, amount: 0, name: "chill" },
+    { valence: VALNEUTRAL, energy: ENHIGH, amount: 0, name: "energetic" },
+    { valence: VALHIGH, energy: ENLOW, amount: 0, name: "content" },
+    { valence: VALHIGH, energy: ENNEUTRAL, amount: 0, name: "blissful" },
+    { valence: VALHIGH, energy: ENHIGH, amount: 0, name: "elated" },
   ];
   hue = 0;
 

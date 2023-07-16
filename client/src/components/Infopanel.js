@@ -45,8 +45,8 @@ export default function Infopanel({
   }
 
   function handleUnhover(i) {
-    setTitle("Audio Aura");
-    setSubtitle(fullDate);
+    setTitle(fullDate);
+    setSubtitle("");
     setImage(null);
     audioRefs.current[i].pause();
     audioRefs.current[i].currentTime = 0;
