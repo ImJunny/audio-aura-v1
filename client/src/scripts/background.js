@@ -218,48 +218,22 @@ function getHue() {
 //only for login page; generates arr of 3 colors for login page
 function getRandomColors() {
   const rgbStrings = [
-    "rgb(121, 124, 255)",
-    "rgb(214, 164, 255)",
-    "rgb(245, 137, 142)",
-    "rgb(133, 254, 230)",
-    "rgb(152, 254, 154)",
-    "rgb(253, 206, 252)",
-    "rgb(183, 255, 255)",
-    "rgb(255, 249, 121)",
-    "rgb(255, 174, 121)",
-    "rgb(13, 19, 255)",
-    "rgb(138, 1, 250)",
-    "rgb(237, 28, 36)",
-    "rgb(1, 216, 173)",
-    "rgb(105, 255, 125)",
-    "rgb(251, 132, 248)",
-    "rgb(16, 254, 254)",
-    "rgb(255, 242, 0)",
-    "rgb(255, 121, 32)",
-    "rgb(0, 4, 187)",
-    "rgb(102, 1, 184)",
-    "rgb(187, 15, 23)",
-    "rgb(1, 158, 126)",
-    "rgb(79, 214, 97)",
-    "rgb(249, 47, 243)",
-    "rgb(1, 216, 216)",
-    "rgb(202, 192, 0)",
-    "rgb(234, 94, 0)",
+    ["rgb(251, 132, 248)", "rgb(138, 1, 250)", "rgb(187, 15, 23)"],
+    ["rgb(105, 255, 125)", "rgb(138, 1, 250)", "rgb(1, 216, 216)"],
+    ["rgb(251, 132, 248)", "rgb(0, 4, 187)", "rgb(16, 254, 254)"],
   ];
 
   function randomColor() {
-    let rand = Math.floor(Math.random() * 27);
+    let rand = Math.floor(Math.random() * 3);
     return rgbStrings[rand];
   }
 
   let arr = [];
-  while (arr.length < 3) {
-    let color = randomColor();
-    if (!arr.includes(color)) {
-      arr.push({ rgb: color });
-    } else {
-      color = randomColor();
-    }
-  }
+  let color = randomColor();
+  color.forEach((a) => {
+    arr.push({ rgb: a });
+  });
+  console.log(arr);
+
   return arr;
 }
