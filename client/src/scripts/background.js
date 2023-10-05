@@ -233,7 +233,6 @@ function getRandomColors() {
   color.forEach((a) => {
     arr.push({ rgb: a });
   });
-  console.log(arr);
 
   return arr;
 }

@@ -6,10 +6,10 @@ require("dotenv").config();
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const redirectUri = process.env.REDIRECT_URI;
-let authCode;
-let token;
-let tokenRef;
-let term = "";
+//let authCode;
+//let token; //shouldnt be global
+//let tokenRef; //unused; will use as refresh token
+//let term = "";
 
 const app = express();
 const PORT = 5000;
@@ -30,12 +30,13 @@ app.get("/authenticate", (req, res) => {
 });
 
 app.post("/postCode", async (req, res) => {
-  authCode = req.body.code;
-  term = req.body.term;
-  token = req.body.token;
+  let authCode = req.body.code;
+  let term = req.body.term;
+  let token = req.body.token;
+  console.log(token);
 
   if (token === undefined) {
-    await setTokens();
+    token = await setTokens(token, authCode);
   }
 
   if (token === undefined) {
@@ -43,19 +44,19 @@ app.post("/postCode", async (req, res) => {
     return;
   }
 
-  let topTracks = await getTopTracks();
+  let topTracks = await getTopTracks(token, term);
   if (topTracks.items.length < 5) {
     res.json("not enough tracks");
     return;
   }
 
-  let audioFeatures = await getAudioFeatures(topTracks.items);
-  let topArtists = await getTopArtists();
+  let audioFeatures = await getAudioFeatures(token, topTracks.items);
+  let topArtists = await getTopArtists(token, term);
   let data = { topTracks, audioFeatures, topArtists, token };
   res.json(data);
 });
 
-function setTokens() {
+function setTokens(token, authCode) {
   return axios
     .post(
       "https://accounts.spotify.com/api/token",
@@ -73,15 +74,15 @@ function setTokens() {
       }
     )
     .then((res) => {
-      token = res.data.access_token;
-      tokenRef = res.data.refresh_token;
+      return res.data.access_token;
+      //tokenRef = res.data.refresh_token;
     })
     .catch(() => {
-      token = undefined;
+      return undefined;
     });
 }
 
-function getTopTracks() {
+function getTopTracks(token, term) {
   return axios
     .get(
       `https://api.spotify.com/v1/me/top/tracks?time_range=${term}_term&limit=50&offset=0`,
@@ -94,7 +95,7 @@ function getTopTracks() {
     });
 }
 
-function getAudioFeatures(topTracksArr) {
+function getAudioFeatures(token, topTracksArr) {
   topTracksArr = topTracksArr.map((track) => track.id);
   let idsQuery = topTracksArr.join(",");
   return axios
@@ -106,7 +107,7 @@ function getAudioFeatures(topTracksArr) {
     });
 }
 
-function getTopArtists() {
+function getTopArtists(token, term) {
   return axios
     .get(
       `https://api.spotify.com/v1/me/top/artists?time_range=${term}_term&limit=50&offset=0`,
