@@ -58,7 +58,6 @@ export default function Home() {
     displayRef.current.style.fontSize = `${
       displayRef.current.offsetWidth * 0.05
     }px`;
-    console.log(displayRef.current.offsetWidth);
   }
 
   //useEffect
