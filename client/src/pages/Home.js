@@ -58,6 +58,7 @@ export default function Home() {
     displayRef.current.style.fontSize = `${
       displayRef.current.offsetWidth * 0.05
     }px`;
+    displayRef.current.style.overflow = "hidden";
   }
 
   //useEffect
