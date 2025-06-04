@@ -46,6 +46,7 @@ export default function Home() {
   const backgroundRef = useRef(null);
 
   function setDimensions() {
+    let windowRatio = 0;
     windowRatio = window.innerWidth / window.innerHeight;
     if (windowRatio >= 0.5) {
       displayRef.current.style.height = "100%";
@@ -57,13 +58,16 @@ export default function Home() {
     displayRef.current.style.fontSize = `${
       displayRef.current.offsetWidth * 0.05
     }px`;
+    console.log(displayRef.current.offsetWidth);
   }
-  let windowRatio = 0;
-  window.addEventListener("resize", setDimensions);
 
   //useEffect
   useEffect(() => {
     setDimensions();
+    window.addEventListener("resize", setDimensions);
+    return () => {
+      window.removeEventListener("resize", setDimensions);
+    };
   }, []);
 
   useEffect(() => {
@@ -97,7 +101,7 @@ export default function Home() {
 
       setTitle(fullDate);
     })();
-  }, [term]);
+  }, [codeQuery, fullDate, term, token]);
 
   return (
     <div
@@ -122,7 +126,7 @@ export default function Home() {
             subtitle={subtitle}
             image={image}
             ref={backgroundRef}
-          ></Background>
+          />
           <div className={styles["wrapper"]}>
             <div className={`${styles["container"]} ${styles["container1"]}`}>
               <Infopanel
